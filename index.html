@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Glossário de termos, siglas e movimentos de CrossFit, explicados em português." />
+    <title>Glossário de CrossFit</title>
+  </head>
+  <body>
+    <header class="cabecalho">
+      <h1>Glossário de CrossFit</h1>
+      <p id="subtitulo" class="subtitulo"></p>
+    </header>
+
+    <!-- Pesquisa e filtros: ficam presos ao topo ao fazer scroll. -->
+    <div class="barra-filtros">
+      <div class="pesquisa">
+        <input id="pesquisa" type="search" placeholder="Pesquisar: AMRAP, thruster, remo…" autocomplete="off" aria-label="Pesquisar termos" />
+      </div>
+      <!-- Botões de categoria, criados pelo main.ts. -->
+      <div id="categorias" class="categorias" role="group" aria-label="Filtrar por categoria"></div>
+    </div>
+
+    <main class="conteudo">
+      <p id="contagem" class="contagem" aria-live="polite"></p>
+      <div id="lista"></div>
+      <div id="vazio" class="vazio" hidden>
+        <p>Nenhum termo encontrado.</p>
+        <button id="limpar" type="button">Limpar pesquisa</button>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

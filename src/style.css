@@ -1,0 +1,197 @@
+/* =============================================================
+   style.css — visual neutro, com modo claro e escuro automático
+   (segue a preferência do sistema operativo).
+   ============================================================= */
+
+:root {
+  --fundo: #f6f5f1;
+  --superficie: #ffffff;
+  --borda: #e3e1da;
+  --texto: #1c1c1a;
+  --texto-suave: #5f5e58;
+  --texto-fraco: #8a8880;
+  --destaque: #1f5fbf;
+  --destaque-texto: #ffffff;
+
+  /* Cor de cada categoria (pontinho na etiqueta). */
+  --cat-jargao: #6b6a63;
+  --cat-formatos: #1f5fbf;
+  --cat-benchmarks: #c2410c;
+  --cat-ginastica: #0f8a6a;
+  --cat-halterofilismo: #7c3aed;
+  --cat-forca: #b91c1c;
+  --cat-kettlebell: #a16207;
+  --cat-cardio: #0e7490;
+  --cat-equipamento: #475569;
+
+  color-scheme: light;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Modo escuro: só muda as cores base. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #141413;
+    --superficie: #1d1d1b;
+    --borda: #2f2e2b;
+    --texto: #f1f0ec;
+    --texto-suave: #b3b1aa;
+    --texto-fraco: #85837c;
+    --destaque: #6b9eff;
+    --destaque-texto: #0b1a33;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+[hidden] { display: none !important; }
+
+button, input { font: inherit; color: inherit; }
+
+/* --- Cabeçalho --- */
+
+.cabecalho {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 16px 8px;
+}
+.cabecalho h1 { margin: 0; font-size: clamp(28px, 6vw, 40px); letter-spacing: -0.02em; }
+.subtitulo { margin: 4px 0 0; color: var(--texto-suave); }
+
+/* --- Pesquisa e filtros (presos ao topo) --- */
+
+.barra-filtros {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--fundo);
+  border-bottom: 1px solid var(--borda);
+  padding: 12px max(16px, calc((100% - 928px) / 2)) 10px;
+}
+
+.pesquisa input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 17px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+}
+.pesquisa input:focus { outline: 2px solid var(--destaque); outline-offset: -1px; }
+
+/* No telemóvel os filtros fazem scroll na horizontal; em ecrãs largos passam para várias linhas. */
+.categorias {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+@media (min-width: 720px) {
+  .categorias { flex-wrap: wrap; overflow-x: visible; }
+}
+
+.categoria {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.categoria:hover { border-color: var(--texto-fraco); }
+.categoria.ativa { background: var(--destaque); border-color: var(--destaque); color: var(--destaque-texto); }
+.categoria-total { font-size: 12px; opacity: 0.7; }
+
+/* --- Lista --- */
+
+.conteudo {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px 16px 48px;
+}
+
+.contagem { margin: 8px 0 0; font-size: 14px; color: var(--texto-fraco); }
+
+.letra {
+  margin: 24px 0 8px;
+  font-size: 22px;
+  color: var(--texto-fraco);
+}
+
+/* Cartões em colunas: tantas quantas couberem, com pelo menos 280 px cada. */
+.grelha {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.termo {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.termo-topo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.termo-nome { margin: 0; font-size: 18px; }
+.termo-aliases { margin: 2px 0 0; font-size: 13px; color: var(--texto-fraco); }
+.termo-descricao { margin: 8px 0 0; color: var(--texto-suave); font-size: 15px; }
+
+/* Etiqueta da categoria, com um pontinho da cor da categoria. */
+.etiqueta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--texto-fraco);
+  white-space: nowrap;
+}
+.etiqueta::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cor-categoria);
+}
+.etiqueta-jargao { --cor-categoria: var(--cat-jargao); }
+.etiqueta-formatos { --cor-categoria: var(--cat-formatos); }
+.etiqueta-benchmarks { --cor-categoria: var(--cat-benchmarks); }
+.etiqueta-ginastica { --cor-categoria: var(--cat-ginastica); }
+.etiqueta-halterofilismo { --cor-categoria: var(--cat-halterofilismo); }
+.etiqueta-forca { --cor-categoria: var(--cat-forca); }
+.etiqueta-kettlebell { --cor-categoria: var(--cat-kettlebell); }
+.etiqueta-cardio { --cor-categoria: var(--cat-cardio); }
+.etiqueta-equipamento { --cor-categoria: var(--cat-equipamento); }
+
+/* --- Sem resultados --- */
+
+.vazio { text-align: center; padding: 48px 0; color: var(--texto-suave); }
+.vazio button {
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  cursor: pointer;
+}
